@@ -30,7 +30,7 @@
 
 <div id="fwrapper"> <div class="pheader" itemscope itemtype="https://schema.org/WPHeader"> <h1 id="plogo" itemprop="headline"> <a title="YGDP Tool" href="/">YGDP Tool</a> </h1> <p class="site-description" itemprop="description">Official CPB Flash Tool</p> <div id="psform"> <?php $search_text = "Search"; ?> <form method="get" id="searchform" action="<?php bloginfo('home'); ?>/"> <label class="screen-reader-text" for="psf">Search for:</label> <input type="text" value="<?php echo $search_text; ?>" name="s" id="psf" onblur="if (this.value == '') {this.value = '<?php echo $search_text; ?>';}" onfocus="if (this.value == '<?php echo $search_text; ?>') {this.value = '';}" /> <input type="hidden" id="searchsubmit" /> </form> </div> </div> <ul class="topnav" itemscope itemtype="https://schema.org/SiteNavigationElement"> <li><a class="active" href="/" itemprop="url"><span itemprop="name">Home</span></a></li> <li><a class="active" href="https://ygdptool.com/latest" itemprop="url"><span itemprop="name">Latest</span></a></li> <li><a class="active" href="https://ygdptool.com/category/download" itemprop="url"><span itemprop="name">Archives</span></a></li> <li class="icon"> <a href="javascript:void(0)" id="navicon" onclick="myFunction()"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a> </li> </ul> <div id="front-list"> 
 	
-<div class="frontleft"> <div class="archive-description"> <h2 class="search-title"> <?php printf( __( 'Search Results for: %s', '' ), '<span>' . get_search_query() . '</span>' ); ?> </h2> </div> 
+<div class="frontleft"> <div class="archive-description"> <h2 class="search-title">Search Results for: <span id="searchTerm"></span></h2> </div> 
 	
 <script async src="https://cse.google.com/cse.js?cx=453faef65eb584748"></script>
 <div class="gcse-searchresults-only" data-queryParameterName="q"></div> </div>
@@ -48,6 +48,24 @@ function handleSearch() {
     window.location.href = `search.html?q=${query}`;
   }
   return false; // Prevents the form from submitting the default way
+}
+    </script>
+
+    <script>
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Get the search term from the 'q' parameter in the URL
+const query = getQueryParam('q');
+
+// Find the element to display the search term
+const searchTermElement = document.getElementById('searchTerm');
+
+// If a search term exists and the element is found, display it
+if (query && searchTermElement) {
+  searchTermElement.textContent = `"${decodeURIComponent(query)}"`;
 }
     </script>
 
